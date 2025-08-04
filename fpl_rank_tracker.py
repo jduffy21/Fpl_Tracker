@@ -3,14 +3,7 @@ import psycopg2
 from datetime import datetime
 
 # === CONFIG ===
-manager_id = "506374"  # Replace with your real FPL manager ID
-supabase_config = psycopg2.connect(
-    host="db.fjlznnsnizpydvasxmen.supabase.co",
-    database="postgres",
-    user="postgres",
-    password="Sallins21*",
-    port=5432
-)
+
 # === FETCH RANK HISTORY FROM FPL ===
 url = f"https://fantasy.premierleague.com/api/entry/{manager_id}/history/"
 r = requests.get(url)
