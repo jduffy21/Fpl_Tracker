@@ -1,0 +1,32 @@
+name: FPL Rank Tracker
+
+on:
+  schedule:
+    - cron: '0 8 * * TUE'  # Every Tuesday at 08:00 UTC
+  workflow_dispatch:       # Allows manual trigger
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run script
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        FPL_MANAGER_ID: ${{ secrets.FPL_MANAGER_ID }}
+      run: python fpl_rank_tracker.py
